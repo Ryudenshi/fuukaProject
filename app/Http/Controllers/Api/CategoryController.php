@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PosterResource;
+use App\Http\Resources\CategoryResource;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Poster;
 
-class PosterController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return PosterResource::collection(Poster::all());
+        return CategoryResource::collection(Category::all());
     }
 
     /**
@@ -30,7 +30,7 @@ class PosterController extends Controller
      */
     public function show(string $id)
     {
-        return Poster::find($id); 
+        return Category::find($id); 
     }
 
     /**
