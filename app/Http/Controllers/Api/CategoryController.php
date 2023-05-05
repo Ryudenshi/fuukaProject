@@ -30,7 +30,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        return Category::find($id); 
+        return new CategoryResource(Category::findorFail($id)); 
     }
 
     /**
