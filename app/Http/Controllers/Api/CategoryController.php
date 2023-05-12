@@ -7,6 +7,8 @@ use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\PosterResource;
 use App\Models\Category;
+use App\Models\Poster;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -32,30 +34,43 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return new CategoryResource($category);
+        return response()->json([
+            'message' => 'Category created successfully!',
+            'data' => $category,
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        return new CategoryResource(Category::findorFail($id)); 
+        return new CategoryResource($category); 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryStoreRequest $request, Category $category)
     {
-        //
+        $category->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description')
+        ]);
+
+        return response()->json([
+            'message' => 'Category updated successfully!',
+            'data' => $category
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->noContent();
     }
 }

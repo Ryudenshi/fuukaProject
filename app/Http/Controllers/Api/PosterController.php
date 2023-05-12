@@ -41,31 +41,47 @@ class PosterController extends Controller
             $poster->save();
         }
 
-        return new PosterResource($poster);
+        return response()->json([
+            'message' => 'Poster created successfully!',
+            'data' => $poster,
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Poster $poster)
     {
-        return new PosterResource(Poster::findOrFail($id)); 
+        return new PosterResource($poster); 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PosterStoreRequest $request, Poster $poster)
     {
-        //
+            $imagePath = $request->file('image_url')->store('public/images');
+
+            $imagePath = 'images/' . basename($imagePath);
+
+        $poster->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'image_url' => $imagePath,
+            'price' => $request->input('price'),   
+        ]);
+
+        return response()->json([
+            'message' => 'Poster updated successfully!',
+            'data' => $poster
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Poster $poster)
     {
-        $poster = Poster::findOrFail($id);
 
         if ($poster) 
         {
@@ -74,6 +90,6 @@ class PosterController extends Controller
             return redirect()->back()->with('success', 'Poster deleted successfilly');
         }
 
-        return redirect()->back()->with('error', 'Project not found');
+        return response()->noContent();
     }
 }

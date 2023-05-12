@@ -11,7 +11,7 @@ class PosterStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,10 +23,10 @@ class PosterStoreRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|string',
+            'description' => 'required|string',
             'image_url' =>'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'price' => 'required'
+            'price' => 'required|numeric'
         ];
     }
 }
