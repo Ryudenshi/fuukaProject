@@ -60,9 +60,9 @@ class PosterController extends Controller
      */
     public function update(PosterStoreRequest $request, Poster $poster)
     {
-            $imagePath = $request->file('image_url')->store('public/images');
+        $imagePath = $request->file('image_url')->store('public/images');
 
-            $imagePath = 'images/' . basename($imagePath);
+        $imagePath = 'images/' . basename($imagePath);
 
         $poster->update([
             'title' => $request->input('title'),
