@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Api\CategoryController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -21,8 +23,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(CategoryController $categoryController)
     {
-        return view('home');
+        $response = $categoryController->index();
+        $categories = $response->getData();
+
+        return view('home', ['categories' => $categories]);
     }
 }
