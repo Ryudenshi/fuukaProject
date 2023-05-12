@@ -21,7 +21,7 @@ class PosterResource extends JsonResource
             'description' => $this->description,
             'image_url' => $this->image_url,
             'price' => $this->price,
-            'created_at' =>$this->created_at,
+            'created_at' => $this->created_at,
         ];
     }
 }

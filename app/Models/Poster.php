@@ -18,6 +18,11 @@ class Poster extends Model
         'user_id',
     ];
 
+    public function lists()
+    {
+        return $this->hasMany(PosterList::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
