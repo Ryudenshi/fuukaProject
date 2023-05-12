@@ -14,6 +14,18 @@
         <p>No categories found.</p>
         @endif
     </div>
+    <div class="row justify-content-center">
+        @if (!empty($posters))
+        @foreach($posters as $poster)
+        <div>
+            <h3>{{ ($poster->title) }}</h3>
+            <p>{{ ($poster->description) }}</p>
+        </div>
+        @endforeach
+        @else
+        <p>No categories found.</p>
+        @endif
+    </div>
 </div>
 
 @endsection

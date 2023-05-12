@@ -16,7 +16,9 @@ class PosterController extends Controller
      */
     public function index()
     {
-        return PosterResource::collection(Poster::all());
+        $posters = PosterResource::collection(Poster::all());
+        
+        return response()->json($posters);
     }
 
     /**
