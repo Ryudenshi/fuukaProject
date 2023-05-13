@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('poster_categories', function (Blueprint $table) {
+        Schema::create('poster_category', function (Blueprint $table) {
             $table->unsignedBigInteger('poster_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();

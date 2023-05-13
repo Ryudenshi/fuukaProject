@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PosterStoreRequest;
@@ -17,8 +17,13 @@ class PosterController extends Controller
     public function index()
     {
         $posters = PosterResource::collection(Poster::all());
-        
+
         return response()->json($posters);
+    }
+
+    public function create()
+    {
+        //
     }
 
     /**
@@ -27,11 +32,12 @@ class PosterController extends Controller
     public function store(PosterStoreRequest $request)
     {
 
-        if ($request->hasFile('image_url') && $request->file('image_url')->isValid())
-        {
+        if ($request->hasFile('image_url') && $request->file('image_url')->isValid()) {
             $imagePath = $request->file('image_url')->store('public/images');
 
             $imagePath = 'images/' . basename($imagePath);
+
+            $categoryIds = $request->input('categories');
 
             $poster = new Poster();
 
@@ -41,12 +47,18 @@ class PosterController extends Controller
             $poster->image_url = $imagePath;
             $poster->price = $request->input('price');
             $poster->save();
+
+            $poster->categories()->attach($categoryIds);
+
+            return response()->json([
+                'message' => 'Poster created successfully!',
+                'data' => new PosterResource($poster),
+            ]);
         }
 
         return response()->json([
-            'message' => 'Poster created successfully!',
-            'data' => $poster,
-        ]);
+            'message' => 'Invalid image file.',
+        ], 400);
     }
 
     /**
@@ -54,7 +66,7 @@ class PosterController extends Controller
      */
     public function show(Poster $poster)
     {
-        return new PosterResource($poster); 
+        return new PosterResource($poster);
     }
 
     /**
@@ -70,7 +82,7 @@ class PosterController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'image_url' => $imagePath,
-            'price' => $request->input('price'),   
+            'price' => $request->input('price'),
         ]);
 
         return response()->json([
@@ -85,8 +97,7 @@ class PosterController extends Controller
     public function destroy(Poster $poster)
     {
 
-        if ($poster) 
-        {
+        if ($poster) {
             Storage::delete($poster->image);
             $poster->delete();
             return redirect()->back()->with('success', 'Poster deleted successfilly');

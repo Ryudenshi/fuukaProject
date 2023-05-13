@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\PosterController;
+use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\PosterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 

@@ -9,7 +9,7 @@ class Poster_Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'poster_categories';
+    protected $table = 'poster_category';
 
     protected $primaryKey = ['poster_id', 'category_id'];
 
