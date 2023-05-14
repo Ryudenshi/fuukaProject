@@ -12,6 +12,72 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <script>
+        $(document).ready(function() {
+            $('#updatePoster').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'), // Use the form's action attribute as the URL
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        // Handle the success case
+                        $('#successModal .message').text(response.message);
+                        $('#successModal').show();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the error case
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Handle form submission
+            $('#yourFormId').submit(function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/api/V1/posters',
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        // Show the success message in a modal
+                        $('#successModal .message').text(response.message);
+                        $('#successModal').show();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the error case
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.getElementById('deletePosterForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (confirm('Are you sure you want to delete this poster?')) {
+                this.submit();
+            }
+        });
+    </script>
+
 </head>
 
 <body>
@@ -86,7 +152,7 @@
                                     <a class="nav-link" href="/fuukaProject/public/create_poster">Posters menage</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="/fuukaProject/public/category_creation">Category menage</a>
+                                    <a class="nav-link" href="/fuukaProject/public/create_category">Category menage</a>
                                 </li>
                             </ul>
                         </li>

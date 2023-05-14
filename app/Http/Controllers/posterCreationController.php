@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\PosterController;
 use App\Http\Controllers\Controller;
+use App\Models\Poster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -16,15 +17,16 @@ class posterCreationController extends Controller
     public function index(CategoryController $categoryController, PosterController $posterController)
     {
         $categoriesResponce = $categoryController->index();
-        $postersResponce =$posterController->index();
+        $postersResponce = $posterController->index();
 
         $categories = $categoriesResponce->getData();
         $posters = $postersResponce->getData();
 
         return view('create_poster', [
-        'categories' => $categories, 
-        'posters' => $posters
-    ]);
+            'categories' => $categories,
+            'posters' => $posters,
+            'poster' => new Poster()
+        ]);
     }
 
     /**
@@ -32,7 +34,7 @@ class posterCreationController extends Controller
      */
     public function create(Request $request)
     {
-        
+
         //
 
     }
@@ -64,7 +66,7 @@ class posterCreationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         //
     }

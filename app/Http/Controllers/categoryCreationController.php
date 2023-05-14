@@ -20,7 +20,7 @@ class categoryCreationController extends Controller
         $categories = $categoriesResponce->getData();
         $posters = $postersResponce->getData();
 
-        return view('create_poster', [
+        return view('create_category', [
         'categories' => $categories, 
         'posters' => $posters
         ]);

@@ -72,23 +72,31 @@ class PosterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PosterStoreRequest $request, Poster $poster)
+    public function update(PosterStoreRequest $request, $id, Poster $poster)
     {
-        $imagePath = $request->file('image_url')->store('public/images');
+        $poster = Poster::findOrFail($id);
 
-        $imagePath = 'images/' . basename($imagePath);
+        if ($poster) {
+            $imagePath = $request->file('image_url')->store('public/images');
 
-        $poster->update([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'image_url' => $imagePath,
-            'price' => $request->input('price'),
-        ]);
+            $imagePath = 'images/' . basename($imagePath);
 
-        return response()->json([
-            'message' => 'Poster updated successfully!',
-            'data' => $poster
-        ]);
+            $poster->update([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'image_url' => $imagePath,
+                'price' => $request->input('price'),
+            ]);
+
+            return response()->json([
+                'message' => 'Poster updated successfully!',
+                'data' => $poster
+            ]);
+        }
+
+        return response()->json()([
+            'message' => 'Failed to update...',
+        ], 404);
     }
 
     /**
@@ -96,13 +104,11 @@ class PosterController extends Controller
      */
     public function destroy(Poster $poster)
     {
-
         if ($poster) {
-            Storage::delete($poster->image);
             $poster->delete();
-            return redirect()->back()->with('success', 'Poster deleted successfilly');
+            return redirect()->back()->with('success', 'Poster deleted successfully');
         }
 
-        return response()->noContent();
+        return redirect()->back()->with('error', 'Failed to delete poster');
     }
 }
