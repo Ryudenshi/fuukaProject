@@ -8,26 +8,26 @@
         </div>
         <div class="row mx-2 mt-4 p-2" style="background-color: lightblue;">
             <div class="col-12 text-center pt-2">
-                <h1 class="text-white">CHOOSE YOUR JORNEY</h1>
+                <h1 class="text-white">CHOOSE YOUR JOURNEY</h1>
             </div>
-            <div class="form-group d-flex flex-wrap mt-3">
-                @foreach($categories as $category)
-                <div>
-                    <div class="col-12 category-cell text-center pt-2">
-                        <h5 class="text-white">{{ $category->name }}</h5>
-                    </div>
-                </div>
-                @endforeach
+            <div class="form-group">
+                <label for="category" class="text-white">Select Category:</label>
+                <select class="form-control" id="category" name="category">
+                    <option value="">All</option>
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div>
                 <hr>
             </div>
-            
+
             <div class="row">
                 <div class="form-group d-flex flex-wrap">
                     @foreach ($posters as $poster)
-                    <div class="">
+                    <div class="poster-card-container" data-categories="{{ $poster->categories->pluck('id')->toJson() }}">
                         <div class="container">
                             <div class="card p-2 poster-card mb-2" style="width: 160px; height: 260px;">
                                 <div class="row">
@@ -50,4 +50,20 @@
     </div>
 </div>
 
+<script>
+    document.getElementById('category').addEventListener('change', function() {
+        const selectedCategoryId = this.value;
+        const posterCardContainers = document.querySelectorAll('.poster-card-container');
+
+        posterCardContainers.forEach(function(container) {
+            const categories = JSON.parse(container.dataset.categories);
+
+            if (selectedCategoryId === '' || categories.includes(parseInt(selectedCategoryId))) {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        });
+    });
+</script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\PosterController;
+use App\Models\Poster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -26,12 +27,14 @@ class HomeController extends Controller
      */
     public function index(CategoryController $categoryController, PosterController $posterController)
     {
-        $categoriesResponce = $categoryController->index();
-        $postersResponce =$posterController->index();
+        $categoriesResponse = $categoryController->index();
+        $postersResponse = $posterController->index();
 
-        $categories = $categoriesResponce->getData();
-        $posters = $postersResponce->getData();
+        $categories = $categoriesResponse->getData();
 
-        return view('home', ['categories' => $categories], ['posters' => $posters]);
+        $postersData = $postersResponse->getData();
+        $posters = Poster::hydrate($postersData);
+
+        return view('home', compact('categories', 'posters'));
     }
 }

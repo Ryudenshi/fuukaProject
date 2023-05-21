@@ -22,11 +22,11 @@ class Poster_Category extends Model
 
     public function poster()
     {
-        return $this->belongsTo(Poster::class);
+        return $this->belongsTo(Poster::class, 'poster_id', 'id');
     }
 
     public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

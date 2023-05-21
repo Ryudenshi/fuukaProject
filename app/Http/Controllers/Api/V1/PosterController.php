@@ -7,6 +7,8 @@ use App\Http\Requests\PosterStoreRequest;
 use App\Http\Resources\PosterResource;
 use Illuminate\Http\Request;
 use App\Models\Poster;
+use App\Models\Category;
+
 use Illuminate\Support\Facades\Storage;
 
 class PosterController extends Controller
@@ -16,9 +18,9 @@ class PosterController extends Controller
      */
     public function index()
     {
-        $posters = PosterResource::collection(Poster::all());
+        $posters = Poster::with('categories')->get();
 
-        return response()->json($posters);
+        return response()->json(PosterResource::collection($posters));
     }
 
     public function create()
@@ -67,6 +69,11 @@ class PosterController extends Controller
     public function show(Poster $poster)
     {
         return new PosterResource($poster);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'poster_category', 'poster_id', 'category_id');
     }
 
     /**

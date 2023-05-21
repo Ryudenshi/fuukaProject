@@ -15,7 +15,6 @@ class Poster extends Model
         'description',
         'image_url',
         'price',
-        'user_id',
     ];
 
     public function lists()
