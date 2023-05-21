@@ -1,0 +1,36 @@
+.category-cell {
+    cursor: pointer;
+}
+.navigation-bar{
+    background-color: lightblue;
+    height: 70px;
+}
+.logo-text-main{
+    font-weight: 700;
+}
+.logo-text-second{
+    font-weight: 700;
+    color:lightslategray;
+}
+
+.user-Name-Button{
+    background-color:lightblue;
+    border-bottom: 2px solid rgb(143, 169, 203);
+    color: white;
+    font-weight: 500;
+    border-radius: 2px;
+    height: 35px;
+}
+.user-Name-Button:hover{
+    background-color: rgb(132, 186, 203);
+}
+.poster-card{
+    border: none;
+    background-color: rgb(132, 186, 203);
+    cursor: pointer;
+    box-shadow: none;
+}
+.poster-card-text{
+    color: white;
+    font-weight: 700;
+}

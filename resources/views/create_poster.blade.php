@@ -37,11 +37,16 @@
 
             <div class="form-group">
                 <label for="categories">Categories:</label>
-                <select class="form-control" name="categories[]" id="categories" multiple required>
+                <div class="form-group d-flex flex-wrap">
                     @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                        <label class="form-check-label" for="category{{ $category->id }}">
+                            {{ $category->name }}
+                        </label>
+                    </div>
                     @endforeach
-                </select>
+                </div>
             </div>
 
             <div class="form-group">
@@ -55,7 +60,7 @@
     <div class="row">
 
         <div class="row my-4">
-            <h3>Delete poster</h3>
+            <h3>Poster list</h3>
         </div>
 
         @foreach($posters as $poster)
@@ -66,8 +71,8 @@
                         <h4 class="ml-3 mt-2">{{ $poster->title }}</h4>
                     </div>
                     <div class="row">
-                        <div class="col-6" style="max-height: 200px;">
-                            <img class="mb-3" style="width: 100%" src="{{ asset('storage/' . $poster->image_url) }}" alt="Poster Image">
+                        <div class="col-6">
+                            <img class="mb-3 ml-3" style="height: 200px; width: auto" src="{{ asset('storage/' . $poster->image_url) }}" alt="Poster Image">
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
@@ -95,15 +100,15 @@
                         <div class="col-6">
                             <img class="mb-3" style="width: 100%" src="{{ asset('storage/' . $poster->image_url) }}" alt="Poster Image">
                         </div>
-                        <form action="/fuukaProject/public/api/V1/posters/{{ $poster->id }}" method="post" enctype="multipart/form-data" id="updatePoster">
+                        <form action="/fuukaProject/public/api/V1/posters/{{ $poster->id }}" method="post" enctype="multipart/form-data" id="updatePosterForm{{ $poster->id }}">
                             @csrf
                             @method('PUT')
 
-                            <p>{{ $poster->id }}</p>
+                            <span>Category ID: </span><span>{{ $poster->id }}</span>
 
                             <div class="form-group">
                                 <label for="title">Title:</label>
-                                <input type="text" class="form-control" name="title" id="title" required>
+                                <input type="text" class="form-control" value="{{ $poster->title }}" name="title" id="title" required>
                             </div>
 
                             <div class="form-group">
@@ -113,21 +118,24 @@
 
                             <div class="form-group">
                                 <label for="image_url">Image:</label>
-                                <input type="file" class="form-control-file" name="image_url" id="image_url" accept="image/*" required>
+                                <input type="file" class="form-control-file" name="image_url" id="image_url" accept="image/*">
                             </div>
 
                             <div class="form-group">
                                 <label for="price">Price:</label>
-                                <input type="number" class="form-control" name="price" id="price" required>
+                                <input type="number" class="form-control" value="{{ $poster->price }}" name="price" id="price" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="categories">Categories:</label>
-                                <select class="form-control" name="categories[]" id="categories" multiple required>
-                                    @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
+                                @foreach($categories as $category)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                                    <label class="form-check-label" for="category{{ $category->id }}">
+                                        {{ $category->name }}
+                                    </label>
+                                </div>
+                                @endforeach
                             </div>
 
                             <div class="modal-footer">
@@ -136,6 +144,7 @@
                             </div>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>

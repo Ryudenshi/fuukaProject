@@ -53,8 +53,6 @@
             </div>
         </div>
         
-
-        <!-- Update Category Modal -->
         <div class="modal fade" id="updateCategoryModal{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="updateCategoryModalLabel{{ $category->id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -88,7 +86,6 @@
                 </div>
             </div>
         </div>
-        <!-- End Update Category Modal -->
 
         @endforeach
     </div>

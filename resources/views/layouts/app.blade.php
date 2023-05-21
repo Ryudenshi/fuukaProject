@@ -7,22 +7,28 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>FuuKA</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/84/84555.png" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 
 </head>
 
 <body>
     <div id="app">
         <header>
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav class="navbar navbar-expand-md navigation-bar">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    <div>
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            <div class="d-flex inline-block">
+                                <h2 class=" logo-text-main text-white">FuuKA</h2><span class="mt-2 logo-text-second">project</span>
+                            </div>
+                        </a>
+                    </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" \ data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -66,8 +72,8 @@
 
                                     @else
                                     <li class="nav-item ">
-                                        <button class="btn btn-primary supportUs" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                            {{ Auth::user()->name }}
+                                        <button class="btn user-Name-Button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            <h5>{{ Auth::user()->name }}</h5>
                                         </button>
                                     </li>
                                     @endguest
@@ -106,7 +112,7 @@
 
         </header>
 
-        <main class="py-4">
+        <main class="py-2">
             @yield('content')
         </main>
 
