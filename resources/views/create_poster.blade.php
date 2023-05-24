@@ -36,6 +36,11 @@
             </div>
 
             <div class="form-group">
+                <label for="date">Release date:</label>
+                <input type="text" class="form-control" name="date" id="date" required>
+            </div>
+
+            <div class="form-group">
                 <label for="categories">Categories:</label>
                 <div class="form-group d-flex flex-wrap">
                     @foreach($categories as $category)
@@ -66,13 +71,15 @@
         @foreach($posters as $poster)
         <div class="col-4 mb-5">
             <div class="container">
-                <div class="card p-2" style="max-height: 260px;">
+                <div class="card p-2" style="max-height: 3000px;">
                     <div>
-                        <h4 class="ml-3 mt-2">{{ $poster->title }}</h4>
+                        <h4 class="ml-3 mt-2 poster-delete-card">{{ $poster->title }}</h4>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <img class="mb-3 ml-3" style="height: 200px; width: auto" src="{{ asset('storage/' . $poster->image_url) }}" alt="Poster Image">
+                            <a class="posterRedirection" href="{{ route('poster.show', ['poster' => $poster->id]) }}">
+                                <img class="mb-3 ml-3" style="height: 200px; width: auto" src="{{ asset('storage/' . $poster->image_url) }}" alt="Poster Image">
+                            </a>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
@@ -83,6 +90,9 @@
                             </form>
                             <button type="button" style="width: 120px;" class="btn btn-primary mt-2" data-toggle="modal" data-target="#updatePosterModal{{ $poster->id }}">Update poster</button>
                         </div>
+                    </div>
+                    <div class="row">
+                        <p class="ml-3">Press on the image to redirect on the title page...</p>
                     </div>
                 </div>
             </div>

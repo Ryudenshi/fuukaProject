@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('image_url')->nullable();
             $table->decimal('price', 8, 2);
+            $table->string('date');
             
             $table->foreign('user_id')
                 ->references('id')

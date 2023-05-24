@@ -48,6 +48,7 @@ class PosterController extends Controller
             $poster->description = $request->input('description');
             $poster->image_url = $imagePath;
             $poster->price = $request->input('price');
+            $poster->date = $request->input('date');
             $poster->save();
 
             $poster->categories()->attach($categoryIds);

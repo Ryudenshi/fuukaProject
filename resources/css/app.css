@@ -1,62 +1,86 @@
 .category-cell {
     cursor: pointer;
 }
-.navigation-bar{
+
+.navigation-bar {
     background-color: lightblue;
     height: 70px;
 }
-.logo-text-main{
+
+.logo-text-main {
     font-weight: 700;
-}
-.logo-text-second{
-    font-weight: 700;
-    color:lightslategray;
 }
 
-.user-Name-Button{
-    background-color:lightblue;
+.logo-text-second {
+    font-weight: 700;
+    color: lightslategray;
+}
+
+.user-Name-Button {
+    background-color: lightblue;
     border-bottom: 2px solid rgb(143, 169, 203);
     color: white;
     font-weight: 500;
     border-radius: 2px;
     height: 35px;
 }
-.user-Name-Button:hover{
+
+.user-Name-Button:hover {
     background-color: rgb(132, 186, 203);
 }
-.poster-card{
+
+.poster-card {
     border: none;
     background-color: rgb(132, 186, 203);
     cursor: pointer;
     box-shadow: none;
 }
-.poster-card-text{
+
+.poster-card-text {
     color: white;
     font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
 }
-.menu-button{
+
+.menu-button {
     font-weight: 700;
     color: lightslategray;
 }
-.posterRedirection{
+
+.posterRedirection {
     text-decoration: none;
     border: none;
 }
-.posterRedirection:hover{
+
+.posterRedirection:hover {
     text-decoration: none;
     border: none;
 }
-.poster-info{
+
+.poster-info {
     background-color: lightblue;
 }
-.logo-on-poster-page{
+
+.logo-on-poster-page {
     opacity: 50%;
 }
-.anime-text{
+
+.anime-text {
     font-weight: 700;
     color: lightslategray;
 }
-.anime-info{
+
+.anime-info {
     font-weight: 700;
     color: white;
+}
+
+.poster-delete-card{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
 }
