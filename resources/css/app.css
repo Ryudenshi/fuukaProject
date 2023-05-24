@@ -34,3 +34,29 @@
     color: white;
     font-weight: 700;
 }
+.menu-button{
+    font-weight: 700;
+    color: lightslategray;
+}
+.posterRedirection{
+    text-decoration: none;
+    border: none;
+}
+.posterRedirection:hover{
+    text-decoration: none;
+    border: none;
+}
+.poster-info{
+    background-color: lightblue;
+}
+.logo-on-poster-page{
+    opacity: 50%;
+}
+.anime-text{
+    font-weight: 700;
+    color: lightslategray;
+}
+.anime-info{
+    font-weight: 700;
+    color: white;
+}

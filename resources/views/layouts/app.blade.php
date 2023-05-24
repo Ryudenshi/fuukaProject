@@ -37,7 +37,15 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav me-auto">
-
+                            <li class="nav-item">
+                                <a class="nav-link menu-button" href="/fuukaProject/public/home">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"></a>
+                            </li>
                         </ul>
 
                         <!-- Right Side Of Navbar -->
@@ -46,13 +54,13 @@
                             @guest
                             @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link menu-button" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
                             </li>
                             @endif
 
                             @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link menu-button" href="{{ route('register') }}">{{ __('REGISTER') }}</a>
                             </li>
                             @endif
                             @else
