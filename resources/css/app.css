@@ -84,3 +84,7 @@
     white-space: nowrap;
     max-width: 100%;
 }
+.im-going-on-the-front{
+    z-index: 1;
+    background-color: lightblue;
+}

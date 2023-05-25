@@ -21,30 +21,22 @@
 <body>
     <div id="app">
         <header>
-            <nav class="navbar navbar-expand-md navigation-bar">
+            <nav class=" navbar navbar-expand-md navigation-bar">
                 <div class="container">
-                    <div>
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            <div class="d-flex inline-block">
-                                <h2 class=" logo-text-main text-white">FuuKA</h2><span class="mt-2 logo-text-second">project</span>
-                            </div>
-                        </a>
+                    <div class="navbar-brand">
+                        <div class="d-flex inline-block">
+                            <h2 class=" logo-text-main text-white">FuuKA</h2><span class="mt-2 logo-text-second">project</span>
+                        </div>
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" \ data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="im-going-on-the-front collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
+                            <li class="nav-item ml-2">
                                 <a class="nav-link menu-button" href="/fuukaProject/public/home">HOME</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"></a>
                             </li>
                         </ul>
 
@@ -129,7 +121,7 @@
 
         </footer>
     </div>
-
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
