@@ -7,7 +7,7 @@
 
         <h3>Create poster</h3>
 
-        <form id="createPoster" action="/fuukaProject/public/api/V1/posters" method="post" enctype="multipart/form-data" id="createPoster">
+        <form onsubmit="event.preventDefault(); createPoster();" id="createPoster" action="/fuukaProject/public/api/V1/posters" method="post" enctype="multipart/form-data" id="createPoster">
             @csrf
 
             <div class="form-group">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="form-group">
-                <button id="createPoster" type="submit" class="btn btn-success">Add Poster</button>
+                <button onsubmit="event.preventDefault(); createPoster();" type="submit" class="btn btn-success">Add Poster</button>
             </div>
         </form>
     </div>
@@ -161,56 +161,35 @@
         @endforeach
     </div>
 
-    <!-- Add this HTML code at the end of your create_poster.blade.php file -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Poster Creation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Poster created successfully!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $(document).ready(function() {
-        $('#createPoster').on('submit', function(e) {
-            e.preventDefault(); // Prevent the form from submitting normally
+    function createPoster() {
+        var form = document.getElementById('createPoster');
+        var formData = new FormData(form);
 
-            // Perform an AJAX request to submit the form data
-            jQuery.ajax()({
-                url: '/fuukaProject/public/api/V1/posters',
-                type: 'POST',
-                data: new FormData(this),
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    // Handle the successful response
-                    // Display the success message or show the modal window here
-                    alert('Poster created successfully!');
-                    $('#myModal').modal('show');
-                },
-                error: function(xhr, status, error) {
-                    // Handle the error response
-                    // Display an error message or perform any other necessary actions
-                    alert('Error: ' + error);
+        fetch('/fuukaProject/public/api/V1/posters', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response data
+                console.log(data);
+                if (data.message === 'Poster created successfully!') {
+                    // Show the success modal
+                    $('#successModal').modal('show');
+                } else {
+                    // Show an error message
+                    $('#errorModal').modal('show');
                 }
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error(error);
+                $('#errorModal').modal('show');
             });
-        });
-    });
+    }
 </script>
-
 
 @endsection
