@@ -41,18 +41,17 @@
             </div>
 
             <div class="form-group">
-                <label for="categories">Categories:</label>
-                <div class="form-group d-flex flex-wrap">
-                    @foreach($categories as $category)
-                    <div class="form-check mx-2">
-                        <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
-                        <label class="form-check-label" for="category{{ $category->id }}">
-                            {{ $category->name }}
-                        </label>
-                    </div>
-                    @endforeach
+                <label class="text-white">Select Categories:</label>
+                @foreach ($categories as $category)
+                <div class="form-check">
+                    <input class="form-check-input category-checkbox" type="checkbox" value="{{ $category->id }}" id="category-{{ $category->id }}">
+                    <label class="form-check-label" for="category-{{ $category->id }}">
+                        {{ $category->name }}
+                    </label>
                 </div>
+                @endforeach
             </div>
+
 
             <div class="form-group">
                 <button onsubmit="event.preventDefault(); createPoster();" type="submit" class="btn btn-success">Add Poster</button>
@@ -161,7 +160,54 @@
         @endforeach
     </div>
 
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Poster created successfully!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="reloadPage()" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Error occurred while creating the poster.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="reloadPage()" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+
+<script>
+    function reloadPage() {
+        location.reload();
+    }
+</script>
 
 <script>
     function createPoster() {

@@ -5,7 +5,7 @@
 <div class="container">
     <h3>Create category</h3>
 
-    <form action="/fuukaProject/public/api/V1/categories" method="post" enctype="multipart/form-data">
+    <form action="/fuukaProject/public/api/V1/categories" onsubmit="event.preventDefault(); createCategory();" method="post" enctype="multipart/form-data" id="createCategory">
         @csrf
 
         <div class="form-group">
@@ -44,7 +44,7 @@
                             <form action="/fuukaProject/public/api/V1/categories/{{ $category->id }}" method="post" id="deleteCategoryForm">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete category</button>
+                                <button type="submit" onclick="reloadPage()" class="btn btn-danger">Delete category</button>
                             </form>
                             <button type="button" style="width: 130px;" class="btn btn-primary mt-2" data-toggle="modal" data-target="#updateCategoryModal{{ $category->id }}">Update category</button>
                         </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="updateCategoryModal{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="updateCategoryModalLabel{{ $category->id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Update</button>
+                                <button type="submit" onclick="reloadPage()" class="btn btn-success">Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </form>
@@ -89,5 +89,78 @@
 
         @endforeach
     </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Category created successfully!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="reloadPage()" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Error occurred while creating the category.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="reloadPage()" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function reloadPage() {
+        location.reload();
+    }
+
+    function createCategory() {
+        var form = document.getElementById('createCategory');
+        var formData = new FormData(form);
+
+        fetch('/fuukaProject/public/api/V1/categories', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response data
+                console.log(data);
+                if (data.message === 'Category created successfully!') {
+                    // Show the success modal
+                    $('#successModal').modal('show');
+                } else {
+                    // Show an error message
+                    $('#errorModal').modal('show');
+                }
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error(error);
+                $('#errorModal').modal('show');
+            });
+    }
+</script>
 @endsection

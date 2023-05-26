@@ -10,14 +10,17 @@
             <div class="col-12 text-center pt-2">
                 <h1 class="text-white">CHOOSE YOUR JOURNEY</h1>
             </div>
-            <div class="form-group">
-                <label for="category" class="text-white">Select Category:</label>
-                <select class="form-control" id="category" name="category">
-                    <option value="">All</option>
-                    @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
+
+            <div class="row"><label class="text-white">Select Categories:</label></div>
+            <div class="form-group d-flex flex-wrap ">
+                @foreach ($categories as $category)
+                <div class="form-check mx-2">
+                    <input class="form-check-input category-checkbox" type="checkbox" value="{{ $category->id }}" id="category-{{ $category->id }}">
+                    <label class="form-check-label" for="category-{{ $category->id }}">
+                        {{ $category->name }}
+                    </label>
+                </div>
+                @endforeach
             </div>
 
             <div>
@@ -25,7 +28,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group d-flex flex-wrap">
+                <div class="form-group d-flex flex-wrap ml-5">
                     @foreach ($posters as $poster)
                     <a class="posterRedirection" href="{{ route('poster.show', ['poster' => $poster->id]) }}">
                         <div class="poster-card-container" data-categories="{{ $poster->categories->pluck('id')->toJson() }}">
@@ -53,18 +56,20 @@
 </div>
 
 <script>
-    document.getElementById('category').addEventListener('change', function() {
-        const selectedCategoryId = this.value;
-        const posterCardContainers = document.querySelectorAll('.poster-card-container');
+    document.querySelectorAll('.category-checkbox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            const selectedCategories = Array.from(document.querySelectorAll('.category-checkbox:checked'), checkbox => checkbox.value);
+            const posterCardContainers = document.querySelectorAll('.poster-card-container');
 
-        posterCardContainers.forEach(function(container) {
-            const categories = JSON.parse(container.dataset.categories);
+            posterCardContainers.forEach(function(container) {
+                const categories = JSON.parse(container.dataset.categories);
 
-            if (selectedCategoryId === '' || categories.includes(parseInt(selectedCategoryId))) {
-                container.style.display = 'block';
-            } else {
-                container.style.display = 'none';
-            }
+                if (selectedCategories.length === 0 || selectedCategories.every(categoryId => categories.includes(parseInt(categoryId)))) {
+                    container.style.display = 'block';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
         });
     });
 </script>
