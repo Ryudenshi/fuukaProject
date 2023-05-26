@@ -146,18 +146,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Handle the response data
                 console.log(data);
                 if (data.message === 'Category created successfully!') {
-                    // Show the success modal
                     $('#successModal').modal('show');
                 } else {
-                    // Show an error message
                     $('#errorModal').modal('show');
                 }
             })
             .catch(error => {
-                // Handle any errors
                 console.error(error);
                 $('#errorModal').modal('show');
             });

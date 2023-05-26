@@ -41,17 +41,18 @@
             </div>
 
             <div class="form-group">
-                <label class="text-white">Select Categories:</label>
-                @foreach ($categories as $category)
-                <div class="form-check">
-                    <input class="form-check-input category-checkbox" type="checkbox" value="{{ $category->id }}" id="category-{{ $category->id }}">
-                    <label class="form-check-label" for="category-{{ $category->id }}">
-                        {{ $category->name }}
-                    </label>
+                <label for="categories">Categories:</label>
+                <div class="form-group d-flex flex-wrap">
+                    @foreach($categories as $category)
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                        <label class="form-check-label" for="category{{ $category->id }}">
+                            {{ $category->name }}
+                        </label>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-
 
             <div class="form-group">
                 <button onsubmit="event.preventDefault(); createPoster();" type="submit" class="btn btn-success">Add Poster</button>
@@ -220,18 +221,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Handle the response data
                 console.log(data);
                 if (data.message === 'Poster created successfully!') {
-                    // Show the success modal
                     $('#successModal').modal('show');
                 } else {
-                    // Show an error message
                     $('#errorModal').modal('show');
                 }
             })
             .catch(error => {
-                // Handle any errors
                 console.error(error);
                 $('#errorModal').modal('show');
             });
